@@ -32,14 +32,19 @@ Install npm modules.
 And [jQuery](https://jquery.com/) v3.5 under `public\javascripts`
 
 There is mock data taken from [Mockaroo](https://mockaroo.com/) of 1000 records of each model in JSON format under bin folder.
+
 In order to add those to your local Mongodb (default address is 'mongodb://localhost/socialdb') run
+
 `\SocialMedia_v0.1>npm run-script seed`
+
 **Note** that seeding data might take a while due to downloading images from [robohash](https://robohash.org/) and [Dummyimage](https://dummyimage.com/), 
 wait for the script to end!
+
 Image downloading done with [request](https://www.npmjs.com/package/request) package which is deprecated at the moment and used only for this purpose!
 
 The server will be runing on default 3000 port or on enviroment variable "PORT"
 and it will use session key from eviroment variable "SECRET_SESSION".
+
 `var baker = process.env.SECRET_SESSION||'cookiemaker';`
 
 To run the server run `npm start`

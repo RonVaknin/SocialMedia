@@ -1,0 +1,126 @@
+<% let usernamevalidation = "username should contain characters and '_'\n"+
+    "no two underscores in a row\n"+
+    "and no underscore and the start or end of username.\n"+
+    "length must be between 3-20 characters\n" 
+%> 
+
+<% if (user.errors){ %>
+    <% for(let message of Object.values(user.errors)) {%>
+        <%=message%>
+    <%}%>
+<%}%>
+<h1>
+    <%= page.title %>
+</h1>
+
+<form 
+    <% if (user.errors){ %>
+        class="was-validated" novalidate 
+    <% } else {%>
+        class="needs-validation"
+    <%}%>
+    method="POST" action="/users/new" enctype="multipart/form-data" >
+    <div class="form-row ml-4">
+        <div class="col-sm-3 mb-3">
+            <label for="fname">First name</label>
+            <input type="text" class="form-control" id="fname" placeholder="First name" 
+                value="<%=user.fname%>" required pattern="[A-Za-z]{2,20}" name="fname">
+            <div class="invalid-tooltip">
+                valid name is between 2-20 characters
+            </div>
+        </div>
+        <div class="col-sm-3 mb-3">
+            <label for="sname">Last name</label>
+            <input type="text" class="form-control" id="sname" placeholder="Last name" 
+            value="<%=user.sname%>" required pattern="[A-Za-z]{2,20}" name="sname">
+            <div class="invalid-tooltip">
+                valid name is between 2-20 characters
+            </div>
+        </div>
+        <div class="col-sm-3 mb-3">
+            <label for="validationTooltipUsername">Username</label>
+            <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+            </div>
+            <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" 
+                aria-describedby="validationTooltipUsernamePrepend" name="username"
+                required pattern="^(?=.{3,20}$)(?![_])(?![_]{2})[a-zA-Z0-9_]+[a-zA-Z0-9]$"
+                title="<%= usernamevalidation %>"value="<%= user.username %>">
+            <div class="invalid-tooltip">
+                Please choose a unique username.
+            </div>
+            <% if (locals.user && (user.errors === undefined || user.errors === undefined) ) {%> 
+                <div class="valid-tooltip">
+                    great! username available
+                </div>
+            <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="form-row ml-4">
+        <div class="col-md-3 mb-3">
+            <label for="email">Email address</label>
+            <input type="email" value="<%= user.email %>"class="form-control" id="email" name="email"
+                placeholder="your@email.com" required>
+            <div class="invalid-tooltip">
+            Please provide a valid state.
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="password">password</label>
+            <input type="password" class="form-control" id="password" name="password"
+                placeholder="********" required title="between 6-20 characters">
+            <div class="invalid-tooltip">
+            Please provide a valid password.
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="confirm_password">confirm password</label>
+            <input type="password" class="form-control" 
+                id="confirm_password" name="confirm_password"
+                placeholder="********" required >
+            <div class="invalid-tooltip">
+            passwords do not match.
+            </div>
+        </div>
+    </div>
+    <div class="form-row ml-4">
+        <div class="col-sm-2 mb-3">
+            <label for="birthday" >Birthday</label>
+            <input type="date" value="<%= user.birthday %>" class="form-control" id="birthday" required>
+        </div>
+        <div class="col-sm-2 mb-3">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="phone" placeholder="xxxxxxxxxx" 
+            required pattern="^\d{9,10}$" maxlength="10" name="phone" title="9-10 digits" value="<%= user.phone %>"/>
+            <div class="invalid-tooltip">
+            Please provide a valid phone number.
+            </div>
+        </div>
+    </div>
+    <div class="form-row ml-4">
+        <div class="custom-file col-md-4 mb-3 mt-4">
+            <input type="file" class="form-control costum-file" id="customFile" name="profilepic">
+            
+        </div>
+    </div>
+    <button class="btn btn-primary ml-4" type="submit">Submit form</button>
+  </form>
+
+
+<script>
+    var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>

@@ -1,0 +1,47 @@
+<div class="container  mx-auto d-flex justify-content-center col-7">      
+    <div class="col ">
+        <div class="card mb-5 p-1" style="background-color: <%= post.color %>; ">
+            <img class="card-img-top" src="/<%=post.id %>/img" alt="post image" 
+                onclick="location.href='/post/<%= post.id %>'"/>
+            <div class="card-body bg-light">
+                <h5 class="card-title" onclick="location.href='users/<%= post.author.username %>/user'"> 
+                    <%=post.author.username%>
+                </h5>
+                <p class="card-text" onclick="location.href='/post/<%= post.id %>'"><%=post.content%></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% if (comments){ %> 
+    <div class="container  mx-auto d-flex justify-content-center col-7 "> 
+        <div class="col">
+            <%comments.forEach(function(comment){%>
+                <div class="card mb-5 ">        
+                    <div class="card-body">
+                        <h5 class="card-title" onclick="location.href='users/<%= comment.author.username %>/user'"> 
+                            <%=comment.author.username%>
+                        </h5>
+                        <p class="card-text"><%=comment.content%></p>
+                    </div>      
+                </div>
+            <%})%>
+        </div>
+    </div>
+<% } else { %>
+    <p>no comments yet</p>
+<% } %>
+<% if (user) { %>
+<div class="container mx-auto mb-3 d-flex justify-content-center">
+    <form method="POST" action="/comment" id="commentform" enctype="application/x-www-form-urlencoded">
+        <div class="form-row">
+            <input type="hidden" name="parent" value="<%=post.id%>"/>
+            <textarea name="content" placeholder="add new comment"></textarea>
+        </div>
+        <div class="form-row">
+            <input type="submit" value="Comment"/>
+        </div>
+    </form>
+</div>
+<% } %>
+<%-include("../paginator",{paginator})%>

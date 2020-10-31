@@ -1,0 +1,19 @@
+<%if (page.errors && page.errors!="") {%>
+    <div class="alert alert-primary" role="alert">
+        <%=page.errors%>
+    </div>
+<%}%>
+
+<form action="/users" method="POST" enctype="application/x-www-form-urlencoded">
+    <div class="form-row col-md-5">
+      <div class="col">
+        <input type="email" name="email" class="form-control" placeholder="<%= user.email||"email"%>">
+      </div>
+      <div class="col">
+        <input type="password" class="form-control" placeholder="password" name="password">
+      </div>
+      <div>
+        <input type="submit" value="sign in"/>
+      </div>
+    </div>
+  </form>

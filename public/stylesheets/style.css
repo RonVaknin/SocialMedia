@@ -1,0 +1,21 @@
+body{
+  padding-top: 60px;
+}
+.mt-7{
+  margin-top: 7rem !important;
+}
+.mt-6{
+  margin-top: 6rem !important;
+}
+.mt-5s{
+  margin-top: 5.5rem !important;
+}
+
+.profile-img{
+  max-width: 8rem;
+  max-height: 10rem;
+}
+
+.sticky-top{
+  top:4rem;
+}

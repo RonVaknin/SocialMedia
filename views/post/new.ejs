@@ -1,0 +1,46 @@
+
+<h1>
+    <%= page.title %>
+</h1>   
+<form 
+<% if (post.errors){ %>
+    class="was-validated" novalidate 
+<% } else {%>
+    class="needs-validation"
+<%}%>
+method="POST" action="/" enctype="multipart/form-data" >
+    <div class="form-row ml-4">
+        <div class="col-sm-3 mb-3">
+            <label for="content">
+                <textarea class="form-control" name="content" id="content"><%=post.text%></textarea>
+            </label>
+        </div>
+        <div class="invalid-tooltip">
+            valid name is between 2-20 characters
+        </div>
+    </div>
+    <div class="form-row ml-4">
+        <div class="col-sm-3 mb-3">
+            <label for="color">
+                color:
+                <input class="form-control" type="color" name="color" id="color" value="<%=post.color%>"/>
+            </label>
+        </div>
+    </div>
+    <div class="form-row ml-4">
+        <div class="col-sm-3 mb-3">
+            <label for="postpic">
+                <p>Photo (optional):</p>
+                <input type="file" class="form-control"name="postpic" id="postpic" class="uploadButton" accept="image/*"/>
+            </label>
+        </div>
+    </div>
+    <div class="form-row ml-4">
+        <div class="col-sm-3 mb-3">
+            <label>
+                <input type="submit" value="post"/>
+            </label>
+        </div>
+    </div>
+</form>
+

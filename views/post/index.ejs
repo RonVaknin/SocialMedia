@@ -1,0 +1,20 @@
+
+<div class="container  mx-auto justify-content-center col-md-7 ">
+    <div class="col ">
+        <%posts.forEach(function(post){%>
+        <div class="card mb-5 p-1" style="background-color: <%= post.color %>;">
+            <% if(post.image) { %>
+                <img class="card-img-top" src="/<%=post.id %>/img" alt="post image" 
+                    onclick="location.href='/<%=post.id %>/img'"/>
+            <% } %>
+            <div class="card-body bg-light">
+                <h5 class="card-title" onclick="location.href='users/<%= post.author.username %>/user'"> 
+                    <%=post.author.username%>
+                </h5>
+                <p class="card-text" onclick="location.href='/post/<%= post.id %>'"><%=post.content%></p>
+            </div>
+        </div>
+        <%})%>
+    </div>
+</div>
+<%-include("../paginator",{paginator})%>

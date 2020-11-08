@@ -8,10 +8,16 @@
                     onclick="location.href='/<%=post.id %>/img'"/>
             <% } %>
             <div class="card-body bg-light">
-                <h5 class="card-title" onclick="location.href='users/<%= post.author.username %>/user'"> 
+                <h5 class="card-title" onclick="location.href='/users/<%= post.author.username %>/user'"> 
                     <%=post.author.username%>
                 </h5>
                 <p class="card-text" onclick="location.href='/post/<%= post.id %>'"><%=post.content%></p>
+            </div>
+            <div class="card-footer bg-light">
+                <% if (post.comments > 0) { %>
+                    <a href="/post/<%= post.id %>" class="nav-link active"> <%=post.comments%> comments </a>
+                <% } else { %> 
+                    <a class="nav-item nav-link disabled" href="/post/<%= post.id %>" tabindex="-1" aria-disabled="true">No Comments Yet</a>                <% } %>
             </div>
         </div>
         <%})%>

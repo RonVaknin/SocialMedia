@@ -18,6 +18,8 @@ const saltRounds = 10;
  * image - buffer
  * birthday = date
  * created = date.now()
+ * posts = posts dynamic counter
+ * comments = comment dynamic counter
  */
 const userSchema = mongoose.Schema({
     username:{
@@ -95,6 +97,14 @@ const userSchema = mongoose.Schema({
     created:{
         type:Date,
         default: Date.now,
+    },
+    posts:{
+        type:Number,
+        default: 0,
+    },
+    comments:{
+        type:Number,
+        default: 0,
     }
 });
 
@@ -128,6 +138,14 @@ userSchema.methods.checkPassword = function(candidatePassword) {
 };
 
 
+userSchema.pre('remove', function(next) {
+    // 'this' is the client being removed. Provide callbacks here if you want
+    // to be notified of the calls' result.
+    Post.remove({author: this._id}).exec();
+    Comment.remove({author: this._id}).exec();
+    next();
+});
+
 //TODO check method
 /**
  * this method should give an array of posts containing any post that 
@@ -136,4 +154,6 @@ userSchema.methods.checkPassword = function(candidatePassword) {
 userSchema.methods.getPosts = async function(){
     return await Post.find({author:this});
 }
+
+
 module.exports = new mongoose.model('User',userSchema); 

@@ -1,8 +1,10 @@
 <div class="container  mx-auto d-flex justify-content-center col-7">      
     <div class="col ">
         <div class="card mb-5 p-1" style="background-color: <%= post.color %>; ">
-            <img class="card-img-top" src="/<%=post.id %>/img" alt="post image" 
-                onclick="location.href='/post/<%= post.id %>'"/>
+            <% if (post.image) { %>
+                <img class="card-img-top" src="/<%=post.id %>/img" alt="post image" 
+                    onclick="location.href='/post/<%= post.id %>'"/>
+            <% } %>
             <div class="card-body bg-light">
                 <h5 class="card-title" onclick="location.href='users/<%= post.author.username %>/user'"> 
                     <%=post.author.username%>
